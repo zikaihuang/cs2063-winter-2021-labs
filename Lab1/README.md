@@ -266,7 +266,7 @@ Take and save a screenshot of the log message window.
 
 **Lab Completion**
 
-* Submit a document with the following items:
+* Submit a document to the D2l assignments folder with the following items:
 	* The screenshots you took of the app
 	* Your answers to questions asked throughout
 
