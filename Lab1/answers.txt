@@ -1,0 +1,5 @@
+1. What are the three common layout types?
+	The three common layout types are Linear Layout, Relative Layout and Web View.
+	
+2. Why is it important to define IDs for view objects especically when using RelativeLayout?
+	Defining IDs for view objects is important when creating a RelativeLayout. In a relative layout, sibling views can define their layout relative to another sibling view, which is referenced by the unique ID.
