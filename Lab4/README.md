@@ -141,5 +141,5 @@ In order to test the battery conditions this portion of the lab will be very dif
 
 **Lab Completion**
 
-* Submit `MainActivity.java`, `AlarmReceiver.java`, and `AlarmReceiver.java` to the Lab4 drop box folder on D2L
+* Submit `MainActivity.java`, `AlarmReceiver.java`, and `AndroidManifest.xml` to the Lab4 drop box folder on D2L
 * Keep a copy of your project work and answers for future reference
