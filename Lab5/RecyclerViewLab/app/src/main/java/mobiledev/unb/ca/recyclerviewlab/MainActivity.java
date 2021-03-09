@@ -1,17 +1,29 @@
 package mobiledev.unb.ca.recyclerviewlab;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import mobiledev.unb.ca.recyclerviewlab.model.Course;
+import mobiledev.unb.ca.recyclerviewlab.util.JsonUtils;
 
 public class MainActivity extends AppCompatActivity {
+
+    private RecyclerView mRecyclerView;
+    //private Context context;
+    //private ArrayList<Course> courses;
+    //ArrayList<Course> courses = new ArrayList<Course>();
+    private MyAdapter mAdapter;
+    //private Object description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +33,19 @@ public class MainActivity extends AppCompatActivity {
         // TODO 1
         //  Get the ArrayList of Courses from the JsonUtils class
         //  (Ideally we would do this loading off of the main thread. We'll get to that
-        //  in the next lab. Today we're focusing on displaying scrolling lists.)
+        //  in the next lab. Today we're focusing on displaying scrolling lists.
+        ArrayList<Course> courses = new ArrayList<Course>();
+        JsonUtils json = new JsonUtils(this);
+        courses = json.getCourses();
 
         // TODO 2
         //  Get a reference to the RecyclerView and set its adapter
         //  to be an instance of MyAdapter, which you will need to create
         //  using the ArrayList of courses from above.
+        mRecyclerView = findViewById(R.id.recycler_view);
+        mAdapter = new MyAdapter(courses);
+        mRecyclerView.setAdapter(mAdapter);
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
@@ -70,19 +89,39 @@ public class MainActivity extends AppCompatActivity {
         // position in mDataset
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-          // TODO 3
-          //  Get the Course at index position in mDataSet
-          //  (Hint: you might need to declare this variable as final.)
+            // TODO 3
+            //  Get the Course at index position in mDataSet
+            //  (Hint: you might need to declare this variable as final.)
+            final Course course;
+            course = mDataset.get(position);
 
-          // TODO 4
-          //  Set the TextView in the ViewHolder (holder) to be the title for this Course
+
+            // TODO 4
+            //  Set the TextView in the ViewHolder (holder) to be the title for this Course
+            //public void set_title(TextView text)
+            //{
+            //    ViewHolder view = new ViewHolder(text);
+            //}
+            holder.mTextView.setText((CharSequence) course.getTitle());
+
+
 
           // TODO 5
           //  Set the onClickListener for the TextView in the ViewHolder (holder) such
           //  that when it is clicked, it creates an explicit intent to launch DetailActivity
           //  HINT: You will need to put two extra pieces of information in this intent:
-          //      The Course title and it's description
+          //      The Course title and it's description'
+            holder.mTextView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this,DetailActivity.class)
+                            .putExtra("title",course.getTitle())
+                            .putExtra("description", course.getDescription());
+                    startActivity(intent);
+                }
+            });
         }
+
 
         @Override
         public int getItemCount() {
