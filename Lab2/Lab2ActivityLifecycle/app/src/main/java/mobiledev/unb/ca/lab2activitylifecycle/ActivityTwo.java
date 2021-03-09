@@ -42,6 +42,11 @@ public class ActivityOne extends AppCompatActivity {
     //  declared as instances of the object type, much like when
     //  declaring an int, double, or String.
 
+    TextView onCreateOJ;
+    TextView onStartOJ;
+    TextView onResumeOJ;
+    TextView onRestartOJ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate() called");
@@ -68,12 +73,19 @@ public class ActivityOne extends AppCompatActivity {
                 //  Launch the Activity using the above intent. For more information
                 //  consult the Android API documentation for starting activities:
                 //  https://developer.android.com/reference/android/app/Activity#startActivity(android.content.Intent)
+
+                startActivity(intent);
             }
         });
 
         // TODO 4
         //  Use the above Button resource reference example to capture TextView
         //  references for the four private TextView objects
+
+        onCreateOJ = (TextView) findViewById(R.id.onCreate);
+        onStartOJ=  (TextView) findViewById(R.id.onStart);
+        onResumeOJ= (TextView) findViewById(R.id.onResume);
+        onRestartOJ= (TextView) findViewById(R.id.onRestart);
 
 
         // HINT for 6:
@@ -87,6 +99,9 @@ public class ActivityOne extends AppCompatActivity {
             //  If a savedInstanceState Bundle exists then there have already
             //  been system calls made to activity lifecycle methods. We can
             //  use this Bundle to set current values.
+            onStartCount = savedInstanceState.getInt(START_VALUE);
+            onResumeCount = savedInstanceState.getInt(RESUME_VALUE);
+            onRestartCount = savedInstanceState.getInt(RESTART_VALUE);
         }
 
         // TODO 8
@@ -124,6 +139,7 @@ public class ActivityOne extends AppCompatActivity {
 
         // TODO 8
         //  Increment onRestartCount
+        onRestartCount++;
 
         updateCountsDisplay();
     }
@@ -138,6 +154,10 @@ public class ActivityOne extends AppCompatActivity {
         //  savedInstanceState Bundle so they can be refreshed when
         //  returning to this Activity.
 
+        savedInstanceState.putInt(START_VALUE, onStartCount);
+        savedInstanceState.putInt(RESUME_VALUE, onResumeCount);
+        savedInstanceState.putInt(RESTART_VALUE, onRestartCount);
+
 
         // Must always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
@@ -149,7 +169,10 @@ public class ActivityOne extends AppCompatActivity {
         //  HINT:
         //  Follow the provided example where YourOnCreatetextVariableName
         //  refers to any of the private TextView objects
-        YourOnCreateTextVariableName.setText("onCreate() calls: " + onCreateCount);
+        onCreateOJ.setText("onCreate() calls: " + onCreateCount);
+        onStartOJ.setText("onStart() calls: " + onStartCount);
+        onResumeOJ.setText("onResume() calls: " + onResumeOJ);
+        onRestartOJ.setText("onRstart() calls: " + onRestartOJ);
     }
 
     @Override
